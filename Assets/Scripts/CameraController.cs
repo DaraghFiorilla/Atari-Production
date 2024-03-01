@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -32,10 +33,8 @@ public class CameraController : MonoBehaviour
         }
 
         target = povs[index].position;
-    }
 
-    private void FixedUpdate()
-    {
+
         transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * speed);
         transform.forward = povs[index].forward;
     }
