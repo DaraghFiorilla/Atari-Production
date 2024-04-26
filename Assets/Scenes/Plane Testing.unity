@@ -594,6 +594,7 @@ MonoBehaviour:
   maxThrust: 200
   responsiveness: 10
   lift: 135
+  maxBombs: 5
   hud: {fileID: 147497739}
   propeller: {fileID: 1237153369}
   bombMode: 0
@@ -663,6 +664,7 @@ Transform:
   - {fileID: 305769221}
   - {fileID: 16408395}
   - {fileID: 176313813}
+  - {fileID: 1474436882}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &902689085
@@ -789,6 +791,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2015289177}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1474436881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1474436882}
+  m_Layer: 0
+  m_Name: BOMBPOV
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1474436882
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474436881}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.67, z: 0.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 574321223}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1725085995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1246,6 +1279,7 @@ MonoBehaviour:
   - {fileID: 16408395}
   - {fileID: 176313813}
   speed: 100
+  bombPov: {fileID: 1474436882}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
