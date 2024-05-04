@@ -10,16 +10,17 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform[] povs;
     [Tooltip("The speed at which the camera follows the plane")]
     [SerializeField] private float speed;
-    [Tooltip("The camera position of bomb mode")]
-    [SerializeField] private Transform bombPov;
+    [SerializeField] private GameObject mainCam, bombModeCam;
 
     private int index = 0;
-    private Vector3 target;
+    private Transform target;
     private PlaneController planeController;
 
     private void Awake()
     {
         planeController = FindObjectOfType<PlaneController>();
+        mainCam.SetActive(true);
+        bombModeCam.SetActive(false);
     }
 
     private void Update()
@@ -43,14 +44,18 @@ public class CameraController : MonoBehaviour
                 index = 3;
             }
 
-            target = povs[index].position;
+            target = povs[index];
+            mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, target.position, Time.deltaTime * speed);
+            mainCam.transform.forward = povs[index].forward;
+            mainCam.transform.rotation = povs[index].rotation;
+            mainCam.SetActive(true);
+            bombModeCam.SetActive(false);
         }
         else
         {
-            target = bombPov.position;
+            mainCam.SetActive(false);
+            bombModeCam.SetActive(true);
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * speed);
-        transform.forward = povs[index].forward;
     }
 }
