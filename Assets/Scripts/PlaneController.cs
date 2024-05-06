@@ -56,7 +56,7 @@ public class PlaneController : MonoBehaviour
 
         //propeller.Rotate(Vector3.right * throttle);
 
-        if (bombTimer > 0) { bombCooldown-= Time.deltaTime; }
+        if (bombTimer > 0) { bombTimer -= Time.deltaTime; }
     }
 
     private void FixedUpdate()
@@ -161,9 +161,11 @@ public class PlaneController : MonoBehaviour
 
     private void LaunchBomb()
     {
-        if (currentBombs > 0 && bombCooldown <= 0)
+        Debug.Log("bombTimer = " + bombTimer);
+        if (currentBombs > 0 && bombTimer <= 0)
         {
-            Instantiate(bombPrefab);
+            GameObject bomb = Instantiate(bombPrefab);
+            bomb.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 2, gameObject.transform.position.z);
             currentBombs--;
             bombTimer = bombCooldown; 
         }

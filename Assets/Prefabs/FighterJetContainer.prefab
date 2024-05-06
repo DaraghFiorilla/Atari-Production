@@ -135,11 +135,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throttleIncrement: 0.1
   maxThrust: 200
+  bmMaxThrust: 100
   responsiveness: 10
   lift: 135
   bmCorrectionTime: 2.5
   maxBombs: 5
-  bombPrefab: {fileID: 0}
+  bombPrefab: {fileID: 7058366901694111181, guid: 965e528f854374f49975be4ebbac25fe,
+    type: 3}
   bombCooldown: 5
   hud: {fileID: 0}
   bombMode: 0
