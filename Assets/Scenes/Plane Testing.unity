@@ -31984,6 +31984,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3876333294031389588, guid: 8a65039502a5ce841a75529c5a289447,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 753be30b9812d474f9ae49fac12b353b, type: 2}
+    - target: {fileID: 3876333294031389588, guid: 8a65039502a5ce841a75529c5a289447,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 87e81288d5852074e90819ca905c318f, type: 2}
+    - target: {fileID: 3876333294031389588, guid: 8a65039502a5ce841a75529c5a289447,
+        type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4982ec6df92223b49914605c310f994f, type: 2}
+    - target: {fileID: 3876333294031389588, guid: 8a65039502a5ce841a75529c5a289447,
+        type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: b683ca12bd1085044925c0ead2d99384, type: 2}
     - target: {fileID: 6458885339554934956, guid: 8a65039502a5ce841a75529c5a289447,
         type: 3}
       propertyPath: m_LocalScale.x
