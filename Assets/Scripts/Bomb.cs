@@ -11,10 +11,14 @@ public class Bomb : MonoBehaviour
     private bool started;
     [SerializeField] private GameObject smokePrefab;
     private Vector3 collisionPoint;
+    public float velocityDivider;
+    [HideInInspector] public Rigidbody rb;
+    //[HideInInspector] public Vector3 planeVelocity;
 
     private void Awake()
     {
         started = false;
+        rb = GetComponent<Rigidbody>();
         explosionParticles= GetComponent<ParticleSystem>();
         meshRenderer = GetComponent<MeshRenderer>();
         timer = explosionParticles.main.duration;
@@ -41,7 +45,7 @@ public class Bomb : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            //Debug.Log("bomb hit ground at position " + transform.position);
+            Debug.Log("bomb hit ground at position " + transform.position);
             collisionPoint = gameObject.transform.position;
             meshRenderer.enabled = false;
             explosionParticles.Play();

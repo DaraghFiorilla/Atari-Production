@@ -180,9 +180,13 @@ public class PlaneController : MonoBehaviour
         if (currentBombs > 0 && bombTimer <= 0)
         {
             GameObject bomb = Instantiate(bombPrefab);
+            Bomb bombScript = bomb.GetComponent<Bomb>();
             bomb.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 2, gameObject.transform.position.z);
-            //Debug.Log("Bomb instantiated at position " + bomb.transform.position);
-            //Debug.Log("Plane position = " + gameObject.transform.position);
+            bombScript.rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z) / bombScript.velocityDivider;
+            Debug.Log("Bomb instantiated at position " + bomb.transform.position);
+            Debug.Log("Plane position = " + gameObject.transform.position);
+            Debug.Log("Plane velocity = " + rb.velocity);
+            Debug.Log("Bomb velocity = " + bombScript.rb.velocity);
             currentBombs--;
             bombTimer = bombCooldown; 
         }
