@@ -12,12 +12,14 @@ public class Bomb : MonoBehaviour
     [SerializeField] private GameObject smokePrefab;
     private Vector3 collisionPoint;
     public Dialogue dialogue;
+    public AudioSource audioS;
 
     private void Awake()
     {
         started = false;
         explosionParticles = GetComponent<ParticleSystem>();
         meshRenderer = GetComponent<MeshRenderer>();
+        audioS = GetComponent<AudioSource>();
         
         dialogue = GameObject.FindGameObjectWithTag("GameController").GetComponent<Dialogue>();
         timer = explosionParticles.main.duration;
@@ -49,6 +51,7 @@ public class Bomb : MonoBehaviour
             meshRenderer.enabled = false;
             explosionParticles.Play();
             started = true;
+            audioS.Play();
         }
         if (other.gameObject.CompareTag("Objective"))
         {
@@ -59,6 +62,7 @@ public class Bomb : MonoBehaviour
             started = true;
             other.gameObject.SetActive(false);
             dialogue.currentText++;
+            audioS.Play();
             
         }
     }
