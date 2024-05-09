@@ -157,12 +157,6 @@ public class PlaneController : MonoBehaviour
     {
         rb.constraints = RigidbodyConstraints.FreezePositionY;
 
-        if (!rotationCorrected)
-        {
-            rotationCorrected = true;
-            StartCoroutine(ResetRotation(gameObject.transform, Quaternion.identity, bmCorrectionTime));
-        }
-
         if (Input.GetKeyDown(KeyCode.B)) // TRANSITION FROM BOMB MODE
         {
             rb.constraints = RigidbodyConstraints.None;
@@ -213,19 +207,6 @@ public class PlaneController : MonoBehaviour
         planeExplosion.Stop();
         gameOverScreen.SetActive(true);
         gameObject.SetActive(false);
-    }
-
-    static public IEnumerator ResetRotation(Transform target, Quaternion rot, float dur) // target needs to account for rotation.x + z
-    {
-        float t = 0f;
-        Quaternion start = target.rotation;
-        while (t < dur)
-        {
-            target.rotation = Quaternion.Slerp(start, rot, t / dur);
-            yield return null;
-            t += Time.deltaTime;
-        }
-        target.rotation = rot;
     }
 
     public void ResetMovement()
