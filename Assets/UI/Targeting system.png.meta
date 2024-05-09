@@ -121,18 +121,194 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Targeting system_1
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 473
+        width: 51
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 958fa9c979a826d41bb44994ad63579d
+      internalID: -1230522811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Targeting system_5
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 455
+        width: 45
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71cc978cdd6a1f6458c7e5f171c763b5
+      internalID: 1331144104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Targeting system_7
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 373
+        width: 79
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05c88145cd8d4e742800292f85eb3513
+      internalID: 823073310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Targeting system_12
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 436
+        width: 50
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 039925b0333efb14184bb0f68a5814cb
+      internalID: -2145776506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Targeting system_22
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 301
+        width: 37
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c312487bb138854da647d075d20c349
+      internalID: 1954044376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Targeting system_23
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 301
+        width: 37
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dff0f3bd5793b5438063b0541e2de23
+      internalID: -2070032320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Targeting system_28
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 294
+        width: 32
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56a759193c201624c8e4f9cb7c49972e
+      internalID: 425483065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4977c79591fb43744b2e32d956358d38
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Targeting system_0: 1918506964
+      Targeting system_1: -1230522811
+      Targeting system_10: -1690622182
+      Targeting system_11: -1147126936
+      Targeting system_12: -2145776506
+      Targeting system_13: 1678935545
+      Targeting system_14: 1984001843
+      Targeting system_15: -1343279929
+      Targeting system_16: -1378249886
+      Targeting system_17: -528321795
+      Targeting system_18: -1969756961
+      Targeting system_19: 1913853360
+      Targeting system_2: -648335922
+      Targeting system_20: 280714542
+      Targeting system_21: -673155712
+      Targeting system_22: 1954044376
+      Targeting system_23: -2070032320
+      Targeting system_24: 591643734
+      Targeting system_25: -2125963068
+      Targeting system_26: -425470629
+      Targeting system_27: 1776134437
+      Targeting system_28: 425483065
+      Targeting system_3: 1712924840
+      Targeting system_4: -2022643183
+      Targeting system_5: 1331144104
+      Targeting system_6: -1918951913
+      Targeting system_7: 823073310
+      Targeting system_8: -172089886
+      Targeting system_9: 770345582
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
