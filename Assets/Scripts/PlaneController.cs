@@ -36,19 +36,24 @@ public class PlaneController : MonoBehaviour
     [Header("GameObject references")]
     [SerializeField] private TextMeshProUGUI hud;
     [SerializeField] private CameraController cameraController;
+    [SerializeField] private ParticleSystem smoke;
 
     public bool bombMode;
+    public bool debugPause;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         currentBombs = maxBombs;
         bombTimer = bombCooldown;
-        Debug.Log(cameraController);
+        //Debug.Log(cameraController);
     }
 
     private void Update()
     {
+        if (debugPause) { rb.constraints = RigidbodyConstraints.FreezeAll; }
+        else { rb.constraints = RigidbodyConstraints.None; }
+
         if (!bombMode) { HandleInputs(); }
         else { BombModeInputs(); }
         UpdateHUD();
@@ -56,6 +61,15 @@ public class PlaneController : MonoBehaviour
         //propeller.Rotate(Vector3.right * throttle);
 
         if (bombTimer > 0) { bombTimer -= Time.deltaTime; }
+
+        if (throttle > 0 && !smoke.isPlaying)
+        {
+            smoke.Play();
+        }
+        else if (throttle == 0 && smoke.isPlaying)
+        {
+            smoke.Pause();
+        }
     }
 
     private void FixedUpdate()
@@ -157,16 +171,18 @@ public class PlaneController : MonoBehaviour
         hud.text = "Throttle: " + throttle.ToString("F1") + "%\n";
         hud.text += "Airspeed: " + (rb.velocity.magnitude * 3.6f).ToString("F1") + "km/h\n";
         hud.text += "Altitude: " + transform.position.y.ToString("F1") + "m\n";
-        hud.text += "Current bombs: " + currentBombs;
+        hud.text += "Bombs: " + currentBombs;
     }
 
     private void LaunchBomb()
     {
-        Debug.Log("bombTimer = " + bombTimer);
+        //Debug.Log("bombTimer = " + bombTimer);
         if (currentBombs > 0 && bombTimer <= 0)
         {
             GameObject bomb = Instantiate(bombPrefab);
             bomb.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 2, gameObject.transform.position.z);
+            //Debug.Log("Bomb instantiated at position " + bomb.transform.position);
+            //Debug.Log("Plane position = " + gameObject.transform.position);
             currentBombs--;
             bombTimer = bombCooldown; 
         }

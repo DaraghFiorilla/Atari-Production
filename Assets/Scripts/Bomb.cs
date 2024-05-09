@@ -9,6 +9,8 @@ public class Bomb : MonoBehaviour
     private MeshRenderer meshRenderer;
     private float timer;
     private bool started;
+    [SerializeField] private GameObject smokePrefab;
+    private Vector3 collisionPoint;
 
     private void Awake()
     {
@@ -16,7 +18,7 @@ public class Bomb : MonoBehaviour
         explosionParticles= GetComponent<ParticleSystem>();
         meshRenderer = GetComponent<MeshRenderer>();
         timer = explosionParticles.main.duration;
-        Debug.Log(explosionParticles.main.duration);
+        //Debug.Log(explosionParticles.main.duration);
         explosionParticles.Pause();
     }
 
@@ -27,6 +29,9 @@ public class Bomb : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
+                GameObject smonk = Instantiate(smokePrefab, transform.parent);
+                smonk.transform.position = collisionPoint;
+                smonk.GetComponent<ParticleSystem>().Play();
                 Destroy(gameObject);
             }
         }
@@ -36,7 +41,8 @@ public class Bomb : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("bomb hit ground");
+            //Debug.Log("bomb hit ground at position " + transform.position);
+            collisionPoint = gameObject.transform.position;
             meshRenderer.enabled = false;
             explosionParticles.Play();
             started = true;

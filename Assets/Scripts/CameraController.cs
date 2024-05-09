@@ -17,17 +17,16 @@ public class CameraController : MonoBehaviour
     private Transform target;
     private PlaneController planeController;
     [SerializeField] private GameObject audioListenerObj;
+    [SerializeField] private GameObject planeHUD;
 
     private void Awake()
     {
         planeController = FindObjectOfType<PlaneController>();
-        //mainCam.SetActive(true);
-        //bombModeCam.SetActive(false);
     }
 
     private void Update()
     {
-        if (!planeController.bombMode)
+        if (!planeController.bombMode) // FLYING MODE
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -56,8 +55,9 @@ public class CameraController : MonoBehaviour
                 mainCam.SetActive(true);
                 bombModeCam.SetActive(false);
             }
+            if (!planeHUD.activeSelf) { planeHUD.SetActive(true); }
         }
-        else
+        else // BOMB MODE
         {
             audioListenerObj.transform.SetParent(bombModeCam.transform);
             if (!bombModeCam.activeSelf) // failsafe if the cameras get messed up
@@ -65,6 +65,7 @@ public class CameraController : MonoBehaviour
                 mainCam.SetActive(false);
                 bombModeCam.SetActive(true);
             }
+            if (planeHUD.activeSelf) { planeHUD.SetActive(false); }
         }
 
     }
@@ -74,13 +75,6 @@ public class CameraController : MonoBehaviour
         mainCam.SetActive(true);
         bombModeCam.SetActive(false);
         mainCam.transform.position = povs[0].position;
-        try
-        {
-            planeController.StopAllCoroutines();
-        }
-        catch
-        {
-            // if its catching the coroutine isnt running so nothing needs to go here
-        }
+        planeController.StopAllCoroutines();
     }
 }
