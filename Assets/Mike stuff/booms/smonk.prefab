@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2780416276886197743}
   - component: {fileID: 5348920342816414122}
   - component: {fileID: 6034986388059117791}
-  - component: {fileID: 6500942103094218047}
   m_Layer: 0
   m_Name: smonk
   m_TagString: Untagged
@@ -4829,15 +4828,3 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &6500942103094218047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5601072983486323967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c015fcac10d0d1b4baae9ee7218677e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
