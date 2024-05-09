@@ -39,7 +39,7 @@ public class Bomb : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Building"))
         {
             Debug.Log("bomb hit ground BIG BOOOOOOM");
             collisionPoint = gameObject.transform.position;
