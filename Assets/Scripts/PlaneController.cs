@@ -34,41 +34,64 @@ public class PlaneController : MonoBehaviour
     private Rigidbody rb;
 
     [Header("GameObject references")]
-    [SerializeField] private TextMeshProUGUI hud;
+    public TextMeshProUGUI hud;
     [SerializeField] private CameraController cameraController;
-    [SerializeField] private ParticleSystem smoke;
+    public ParticleSystem smoke;
+    public GameObject gameOverScreen;
+    private ParticleSystem planeExplosion;
 
+    [Header("Game state bools")]
     public bool bombMode;
-    public bool debugPause;
+    public bool pause;
+    public bool gameOver;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        planeExplosion = GetComponent<ParticleSystem>();
+        planeExplosion.Pause();
+        var main = planeExplosion.main;
+        main.stopAction = ParticleSystemStopAction.Callback;
+    }
+
+    private void OnEnable()
+    {
+        StopAllCoroutines();
+        planeExplosion.Stop();
         currentBombs = maxBombs;
         bombTimer = bombCooldown;
-        //Debug.Log(cameraController);
+        pause = false;
+        ResetMovement();
+        bombMode = true;
+        cameraController.planeController = this;
+        cameraController.mainCam.SetActive(false);
+        cameraController.bombModeCam.SetActive(true);
     }
 
     private void Update()
     {
-        if (debugPause) { rb.constraints = RigidbodyConstraints.FreezeAll; }
+        if (pause) { rb.constraints = RigidbodyConstraints.FreezeAll; }
         else { rb.constraints = RigidbodyConstraints.None; }
 
-        if (!bombMode) { HandleInputs(); }
-        else { BombModeInputs(); }
-        UpdateHUD();
-
-        //propeller.Rotate(Vector3.right * throttle);
-
-        if (bombTimer > 0) { bombTimer -= Time.deltaTime; }
-
-        if (throttle > 0 && !smoke.isPlaying)
+        if (!gameOver)
         {
-            smoke.Play();
-        }
-        else if (throttle == 0 && smoke.isPlaying)
-        {
-            smoke.Pause();
+            if (!bombMode) { HandleInputs(); }
+            else { BombModeInputs(); }
+            UpdateHUD();
+
+            if (bombTimer > 0) { bombTimer -= Time.deltaTime; }
+
+            if (smoke != null)
+            {
+                if (throttle > 0 && !smoke.isPlaying)
+                {
+                    smoke.Play();
+                }
+                else if (throttle == 0 && smoke.isPlaying)
+                {
+                    smoke.Pause();
+                }
+            }
         }
     }
 
@@ -89,12 +112,12 @@ public class PlaneController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision) // Use this to detect when plane colliders at high speeds, causing explosion
+    private void OnCollisionEnter(Collision other) // Use this to detect when plane colliders at high speeds, causing explosion
     {
-        /*if (rb.velocity.y < -0.5f)
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Building"))
         {
             ExplodePlane();
-        }*/
+        }
     }
 
     private float responseModifier // Value used to tweak responsiveness to suit plane's mass
@@ -134,23 +157,11 @@ public class PlaneController : MonoBehaviour
     {
         rb.constraints = RigidbodyConstraints.FreezePositionY;
 
-        /*if (gameObject.transform.rotation != new Quaternion(0, 0, 0, 0)) // CORRECT ROTATION
-        {
-            Debug.Log("Rotation is not 0");
-            Vector3 targetRotation = Vector3.zero;
-            float correctionSpeed = bmCorrectionSpeed * Time.deltaTime;
-            Vector3 newRotation = Vector3.RotateTowards(transform.forward, targetRotation, correctionSpeed, 0);
-            transform.rotation = Quaternion.LookRotation(newRotation);
-        }*/
-
         if (!rotationCorrected)
         {
             rotationCorrected = true;
             StartCoroutine(ResetRotation(gameObject.transform, Quaternion.identity, bmCorrectionTime));
         }
-
-        // SET MAX THRUST SPEED
-
 
         if (Input.GetKeyDown(KeyCode.B)) // TRANSITION FROM BOMB MODE
         {
@@ -158,7 +169,7 @@ public class PlaneController : MonoBehaviour
             rotationCorrected = false;
             bombMode = false;
             cameraController.SwitchToMainCam();
-            
+
         }
         else if (Input.GetKeyDown(KeyCode.V))
         {
@@ -176,28 +187,35 @@ public class PlaneController : MonoBehaviour
 
     private void LaunchBomb()
     {
-        //Debug.Log("bombTimer = " + bombTimer);
+        Debug.Log("bombTimer = " + bombTimer);
         if (currentBombs > 0 && bombTimer <= 0)
         {
-            GameObject bomb = Instantiate(bombPrefab);
-            Bomb bombScript = bomb.GetComponent<Bomb>();
+            GameObject bomb = Instantiate(bombPrefab, gameObject.transform);
             bomb.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 2, gameObject.transform.position.z);
-            bombScript.rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z) / bombScript.velocityDivider;
-            Debug.Log("Bomb instantiated at position " + bomb.transform.position);
-            Debug.Log("Plane position = " + gameObject.transform.position);
-            Debug.Log("Plane velocity = " + rb.velocity);
-            Debug.Log("Bomb velocity = " + bombScript.rb.velocity);
             currentBombs--;
-            bombTimer = bombCooldown; 
+            bombTimer = bombCooldown;
         }
     }
 
-    private void ExplodePlane()
+    private void ExplodePlane()// EXPLODE THE MF PLANE
     {
-        // EXPLODE THE MF PLANE
+        gameOver = true;
+        smoke.gameObject.SetActive(false);
+        pause = true;
+        cameraController.planeController = null;
+        planeExplosion.Play();
+        GetComponentInChildren<MeshRenderer>().enabled = false;
+        cameraController.paused = true;
     }
 
-    static public IEnumerator ResetRotation(Transform target, Quaternion rot, float dur)
+    private void OnParticleSystemStopped()
+    {
+        planeExplosion.Stop();
+        gameOverScreen.SetActive(true);
+        gameObject.SetActive(false);
+    }
+
+    static public IEnumerator ResetRotation(Transform target, Quaternion rot, float dur) // target needs to account for rotation.x + z
     {
         float t = 0f;
         Quaternion start = target.rotation;
@@ -208,5 +226,13 @@ public class PlaneController : MonoBehaviour
             t += Time.deltaTime;
         }
         target.rotation = rot;
+    }
+
+    public void ResetMovement()
+    {
+        throttle = 0;
+        roll = 0;
+        pitch = 0;
+        yaw = 0;
     }
 }
