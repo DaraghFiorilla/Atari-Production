@@ -9214,6 +9214,7 @@ MonoBehaviour:
   bombPrefab: {fileID: 0}
   bombCooldown: 5
   hud: {fileID: 147497739}
+  cameraController: {fileID: 0}
   bombMode: 0
 --- !u!54 &574321221
 Rigidbody:
@@ -15325,7 +15326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &902689086
 Light:
   m_ObjectHideFlags: 0
@@ -15338,7 +15339,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.17
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -17097,6 +17098,7 @@ MonoBehaviour:
   speed: 100
   mainCam: {fileID: 2097214191}
   bombModeCam: {fileID: 1049571552}
+  audioListenerObj: {fileID: 2120873751}
 --- !u!4 &972648011
 Transform:
   m_ObjectHideFlags: 0
@@ -18556,7 +18558,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1049571556}
   - component: {fileID: 1049571555}
-  - component: {fileID: 1049571554}
   - component: {fileID: 1049571553}
   m_Layer: 0
   m_Name: BombModeCam
@@ -18609,14 +18610,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &1049571554
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049571552}
-  m_Enabled: 1
 --- !u!20 &1049571555
 Camera:
   m_ObjectHideFlags: 0
@@ -18680,7 +18673,8 @@ Transform:
   m_LocalPosition: {x: -0.0181, y: -0, z: 0.0334}
   m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.010000002}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2120873752}
   m_Father: {fileID: 2098492246}
   m_LocalEulerAnglesHint: {x: 0, y: 98.145, z: 90}
 --- !u!1001 &1053938047
@@ -33552,7 +33546,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2097214194}
   - component: {fileID: 2097214193}
-  - component: {fileID: 2097214192}
   - component: {fileID: 2097214195}
   m_Layer: 0
   m_Name: Main Camera
@@ -33560,15 +33553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!81 &2097214192
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2097214191}
-  m_Enabled: 1
+  m_IsActive: 0
 --- !u!20 &2097214193
 Camera:
   m_ObjectHideFlags: 0
@@ -33995,6 +33980,46 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2119743813}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2120873751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2120873752}
+  - component: {fileID: 2120873753}
+  m_Layer: 0
+  m_Name: AudioListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2120873752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120873751}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.050217215, y: -0.70532125, z: 0.050217334, w: 0.70532143}
+  m_LocalPosition: {x: -11.70638, y: 273.77853, z: 200.98314}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1049571556}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &2120873753
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120873751}
+  m_Enabled: 1
 --- !u!4 &2121985509 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 69c1825b75c529948a11c590d114942a,
@@ -34957,6 +34982,16 @@ PrefabInstance:
       propertyPath: bombCooldown
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2932168213973208119, guid: 8a65039502a5ce841a75529c5a289447,
+        type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 972648010}
+    - target: {fileID: 2932168213973208119, guid: 8a65039502a5ce841a75529c5a289447,
+        type: 3}
+      propertyPath: throttleIncrement
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 3499312960083161780, guid: 8a65039502a5ce841a75529c5a289447,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -35095,7 +35130,7 @@ PrefabInstance:
     - target: {fileID: 7036385698304629741, guid: 8a65039502a5ce841a75529c5a289447,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 76
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 7036385698304629741, guid: 8a65039502a5ce841a75529c5a289447,
         type: 3}
@@ -35273,9 +35308,9 @@ SceneRoots:
   - {fileID: 1324477491}
   - {fileID: 1160761111}
   - {fileID: 6416144793860853757}
-  - {fileID: 972648011}
   - {fileID: 837185677}
   - {fileID: 1981185629}
   - {fileID: 881455556}
   - {fileID: 200150237}
   - {fileID: 1396594179}
+  - {fileID: 972648011}

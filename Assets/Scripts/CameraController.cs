@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class CameraController : MonoBehaviour
 {
@@ -15,12 +16,13 @@ public class CameraController : MonoBehaviour
     private int index = 0;
     private Transform target;
     private PlaneController planeController;
+    [SerializeField] private GameObject audioListenerObj;
 
     private void Awake()
     {
         planeController = FindObjectOfType<PlaneController>();
-        mainCam.SetActive(true);
-        bombModeCam.SetActive(false);
+        //mainCam.SetActive(true);
+        //bombModeCam.SetActive(false);
     }
 
     private void Update()
@@ -48,14 +50,37 @@ public class CameraController : MonoBehaviour
             mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, target.position, Time.deltaTime * speed);
             mainCam.transform.forward = povs[index].forward;
             mainCam.transform.rotation = povs[index].rotation;
-            mainCam.SetActive(true);
-            bombModeCam.SetActive(false);
+            audioListenerObj.transform.SetParent(mainCam.transform);
+            if (!mainCam.activeSelf) // failsafe if the cameras get messed up
+            {
+                mainCam.SetActive(true);
+                bombModeCam.SetActive(false);
+            }
         }
         else
         {
-            mainCam.SetActive(false);
-            bombModeCam.SetActive(true);
+            audioListenerObj.transform.SetParent(bombModeCam.transform);
+            if (!bombModeCam.activeSelf) // failsafe if the cameras get messed up
+            {
+                mainCam.SetActive(false);
+                bombModeCam.SetActive(true);
+            }
         }
 
+    }
+
+    public void SwitchToMainCam()
+    {
+        mainCam.SetActive(true);
+        bombModeCam.SetActive(false);
+        mainCam.transform.position = povs[0].position;
+        try
+        {
+            planeController.StopAllCoroutines();
+        }
+        catch
+        {
+            // if its catching the coroutine isnt running so nothing needs to go here
+        }
     }
 }

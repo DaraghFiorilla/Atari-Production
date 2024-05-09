@@ -35,9 +35,7 @@ public class PlaneController : MonoBehaviour
 
     [Header("GameObject references")]
     [SerializeField] private TextMeshProUGUI hud;
-    //[SerializeField] private Transform propeller;
-    [Tooltip("The visual aid to show the player where the bomb will land")]
-    //[SerializeField] private GameObject aimGuide;
+    [SerializeField] private CameraController cameraController;
 
     public bool bombMode;
 
@@ -46,6 +44,7 @@ public class PlaneController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         currentBombs = maxBombs;
         bombTimer = bombCooldown;
+        Debug.Log(cameraController);
     }
 
     private void Update()
@@ -132,8 +131,8 @@ public class PlaneController : MonoBehaviour
 
         if (!rotationCorrected)
         {
-            StartCoroutine(ResetRotation(gameObject.transform, Quaternion.identity, bmCorrectionTime));
             rotationCorrected = true;
+            StartCoroutine(ResetRotation(gameObject.transform, Quaternion.identity, bmCorrectionTime));
         }
 
         // SET MAX THRUST SPEED
@@ -144,6 +143,8 @@ public class PlaneController : MonoBehaviour
             rb.constraints = RigidbodyConstraints.None;
             rotationCorrected = false;
             bombMode = false;
+            cameraController.SwitchToMainCam();
+            
         }
         else if (Input.GetKeyDown(KeyCode.V))
         {
@@ -176,7 +177,7 @@ public class PlaneController : MonoBehaviour
         // EXPLODE THE MF PLANE
     }
 
-    IEnumerator ResetRotation(Transform target, Quaternion rot, float dur)
+    static public IEnumerator ResetRotation(Transform target, Quaternion rot, float dur)
     {
         float t = 0f;
         Quaternion start = target.rotation;
