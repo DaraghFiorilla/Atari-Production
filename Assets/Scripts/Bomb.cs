@@ -47,5 +47,14 @@ public class Bomb : MonoBehaviour
             explosionParticles.Play();
             started = true;
         }
+        if (other.gameObject.CompareTag("Objective"))
+        {
+            Debug.Log("Target hit");
+            collisionPoint = gameObject.transform.position;
+            meshRenderer.enabled = false;
+            explosionParticles.Play();
+            started = true;
+            other.gameObject.SetActive(false);
+        }
     }
 }
