@@ -11,12 +11,15 @@ public class Bomb : MonoBehaviour
     private bool started;
     [SerializeField] private GameObject smokePrefab;
     private Vector3 collisionPoint;
+    public Dialogue dialogue;
 
     private void Awake()
     {
         started = false;
         explosionParticles = GetComponent<ParticleSystem>();
         meshRenderer = GetComponent<MeshRenderer>();
+        
+        dialogue = GameObject.FindGameObjectWithTag("GameController").GetComponent<Dialogue>();
         timer = explosionParticles.main.duration;
         Debug.Log(explosionParticles.main.duration);
         explosionParticles.Pause();
@@ -55,6 +58,8 @@ public class Bomb : MonoBehaviour
             explosionParticles.Play();
             started = true;
             other.gameObject.SetActive(false);
+            dialogue.currentText++;
+            
         }
     }
 }

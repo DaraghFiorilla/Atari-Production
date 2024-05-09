@@ -17,7 +17,7 @@ public class Dialogue : MonoBehaviour
     [SerializeField] public GameObject Dialogue7;
 
 
-    [SerializeField] int currentText;
+    public int currentText;
 
     // Start is called before the first frame update
     void Start()
@@ -167,7 +167,7 @@ public class Dialogue : MonoBehaviour
         {
             DeactivateBoxes();
         }
-
+    }
         void ActivateBoxes()
         {
             characterBox.SetActive(true);
@@ -183,5 +183,4 @@ public class Dialogue : MonoBehaviour
             Radio.SetActive(false);
             textBox.SetActive(false);
         }
-    }
 }
